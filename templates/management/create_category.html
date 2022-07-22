@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Create Category{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">
+    <p>Create Category</p>
+    <p class="medium">Name: <input type="text" name="name" required/></p>
+    <p class="medium">Abbreviation: <input type="text" name="abv" required/></p>
+    <p class="medium">Held Game: <input name="game_input" id="gameInput" list="game" required/></p>
+    <datalist id="game">
+        {% for x in games %}
+        <option value="{{x.abbreviation}}">{{x.name}}</option>
+        {% endfor %}
+    </datalist>
+    <p class="medium">Show on Home Page: <input type="checkbox" name="show_on_home" id="show_chk" /></p>
+    <p class="medium">Filter Subcategories: <input type="checkbox" name="filter_subcats" /></p>
+    <p class="medium">Multiplayer Category: <input type="checkbox" name="is_multiplayer" /></p>
+    <p class="medium">Order Number: <input type="number" name="order_by" value="{{ order_by_num }}" required/></p>
+    <input type="submit" value="Submit" />
+</form>
+<script>
+    document.getElementById('show_chk').checked = true;
+</script>
+
+{% endblock %}

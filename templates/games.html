@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Speedruns{% endblock %}
+{% block content %}
+
+{% for x in games %}
+<p><a href="{{ x['abv'] }}">{{ x['name'] }}</a></p>
+{% for y in x['categories'] %}
+<a class="bumped-tiny medium no_color" href="/{{ x['abv'] }}/{{ y['abv'] }}">{{ y['name'] }}</a><span class="show_small"><br></span>
+{% endfor %}
+{% endfor %}
+
+{% endblock %}

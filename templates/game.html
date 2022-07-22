@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ game['name'] }}{% endblock %}
+{% block content %}
+
+<p>{{ game['name'] }}</p>
+{% for x in game['categories'] %}
+<a class="bumped medium" href="/{{ game['abv'] }}/{{ x['abv'] }}">{{ x['name'] }}</a>
+{% for y in x['personal_best'] %}
+<p><a class="bumped-further small no_color" href="/run/{{ y['url_id'] }}">{{y['timestring']}} <span class="hide_small">achieved on </span><span class="show_small">| </span>{{y['date']}}{% if y['players'] != None %} with {{ y['players'] }}{% endif %}</a></p>
+{% endfor %}
+{% endfor %}
+
+{% endblock %}

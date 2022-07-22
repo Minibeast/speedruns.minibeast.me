@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Edit Run{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">
+    <p>Edit Run</p>
+    <p class="medium">Category: <input name="cat_input" id="catInput" list="category" value="{{ run.category }}" /></p>
+    <datalist id="category">
+        {% for x in categories %}
+        <option value="{{x['category_id']}}">{{x['name']}}</option>
+        {% endfor %}
+    </datalist>
+    <p class="medium">Subcategory: <input name="subcategory", type="text" value="{{ check_value(run.subcategory) }}" /></p>
+    <p class="medium">Video: <input name="video", type="url" value="{{ check_value(run.video) }}" /></p>
+    <p class="medium">Demos: <input name="demos", type="url" value="{{ check_value(run.demos) }}" /></p>
+    <p class="medium">Platform: <input name="platform", type="text" value="{{ check_value(run.platform) }}" /></p>
+    <p class="medium">Time: <input class="time_fields" type="number" name="hours" placeholder="Hrs" value="{{ run.time.hour }}" /> <input class="time_fields" type="number" name="minutes" placeholder="Min" value="{{ run.time.minute }}" /> <input class="time_fields" type="number" name="seconds" placeholder="Sec" value="{{ run.time.second }}" /></p>
+    <p class="medium">Players: <input name="players", type="text" value="{{ check_value(run.players) }}"/></p>
+    <p class="medium">Date: <input type="date" name="date" value="{{date}}" /></p>
+    <p class="medium">Splits: <input name="splits", type="text" value="{{ check_value(run.splits) }}"/></p>
+    <input type="submit" value="Submit" />
+</form>
+<a class="medium footer" href="/actions/delete_run/{{ run.url_id }}">Delete Run</a>
+
+{% endblock %}

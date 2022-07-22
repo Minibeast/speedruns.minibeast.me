@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ category['name'] }}{% endblock %}
+{% block content %}
+
+<p>{{ category['name'] }} - Minute Barriers</p>
+{% if category['filter'] %}
+
+{% for x in category['run_history'].items() %}
+<p class="bumped medium">{{ x[0] }}</p>
+{% for y in x[1] %}
+<p class="bumped-further small"><a href="/run/{{ y['url_id'] }}">{{ y['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ y['date'] }}{% if y['players'] != None %} with {{ y['players'] }}{% endif %}</p>
+{% endfor %}
+{% endfor %}
+
+{% else %}
+
+{% for x in category['run_history'] %}
+<p class="bumped small"><a href="/run/{{ x['url_id'] }}">{{ x['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ x['date'] }}{% if x['players'] != None %} with {{ x['players'] }}{% endif %}</p>
+{% endfor %}
+
+{% endif %}
+{% endblock %}

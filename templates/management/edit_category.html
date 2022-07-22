@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Edit Category{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">
+    <p>Edit Category</p>
+    <p class="medium">Name: <input type="text" name="name" value="{{ cat.name }}" /></p>
+    <p class="medium">Abbreviation: <input type="text" name="abv" value="{{ cat.abbreviation }}" /></p>
+    <p class="medium">Held Game: <input name="game_input" id="gameInput" list="game" value="{{ game.abbreviation }}" /></p>
+    <datalist id="game">
+        {% for x in games %}
+        <option value="{{x.abbreviation}}">{{x.name}}</option>
+        {% endfor %}
+    </datalist>
+    <p class="medium">Show on Home Page: <input type="checkbox" name="show_on_home" id="show_chk" /></p>
+    <p class="medium">Filter Subcategories: <input type="checkbox" name="filter_subcats" id="show_chk_2" /></p>
+    <p class="medium">Multiplayer Category: <input type="checkbox" name="is_multiplayer" id="show_chk_3"/></p>
+    <p class="medium">Order Number: <input type="number" name="order_by" value="{{ cat.order_by }}" /></p>
+    <input type="submit" value="Submit" />
+</form>
+<a class="medium footer" href="/actions/delete_category/{{ game.abbreviation }}/{{ cat.abbreviation }}">Delete Category</a>
+<script>
+    document.getElementById('show_chk').checked = {{ show_on_home_value }};
+    document.getElementById('show_chk_2').checked = {{ filter_subcats_value }};
+    document.getElementById('show_chk_3').checked = {{ is_multiplayer_value }};
+</script>
+
+{% endblock %}

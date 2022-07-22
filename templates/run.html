@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ run['game_abv'].upper() }} {{ run['category_name'] }} in {{ run['timestring'] }}{% endblock %}
+{% block content %}
+
+<p><a href="/{{ run['game_abv'] }}">{{ run['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="/{{ run['game_abv'] }}/{{ run['category_abv'] }}">{{ run['category_name'] }}</a>{% if run['subcategory'] != None %} ({{ run['subcategory'] }}){% endif %}</p>
+<p class="bumped medium">{{run['timestring']}}{% if run['players'] != None %} with {{ run['players'] }}{% endif %}{% if not is_pb[0] %} <a href="{{ is_pb[1] }}">(Obsolete)</a>{% endif %}</p>
+<p class="bumped medium"><span class="hide_small">Achieved on </span>{{run['date']}}</p>
+{% if run['platform'] != None %}
+<p class="bumped medium"><span class="hide_small">Platform: </span>{{run['platform']}}</p>
+{% endif %}
+{% if run['demos'] != None %}
+<p class="bumped medium"><a href="{{ run['demos'] }}">Demos</a></p>
+{% endif %}
+<br>
+{% for x in run['video'] %}
+<p><iframe src="{{x}}" width="1120" height="630" title="Video Player" frameborder="0" allowfullscreen></iframe></p>
+{% endfor %}
+{% if run['splits'] != None %}
+{% if run['hasvideo'] %}
+<br>
+{% endif %}
+<table>
+    <tr>
+        <td>Split</td>
+        <td>Time</td>
+    </tr>
+    {% for x in run['splits'] %}
+    <tr>
+        <td>{{ x['name'] }}</td>
+        <td>{{ x['time'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p class="medium"><a href="{{ run['url_id'] }}/splits">Download</a> | <a href="/compare/{{ run['url_id'] }}">Create Comparison</a></p>
+<p class="medium"></p>
+{% endif %}
+
+{% endblock %}

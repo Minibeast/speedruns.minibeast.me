@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Speedruns | minibeast.me</title>
+    <link>https://speedruns.minibeast.me</link>
+    <description>Speedrun Updates</description>
+    <language>en-us</language>
+    {% for run in runs %}
+    <item>
+      <title>{{ run['game_name'] }} {{ run['category_name'] }} in {{ run['timestring'] }}</title>
+      <pubDate>{{ run['rssdate'] }} 12:00:00 -0500</pubDate>
+      <link>https://speedruns.minibeast.me/run/{{ run['url_id'] }}</link>
+      <guid>https://speedruns.minibeast.me/run/{{ run['url_id'] }}</guid>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

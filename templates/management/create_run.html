@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Create Run{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">
+    <p>Create Run</p>
+    <p class="medium">Category: <input name="cat_input" id="catInput" list="category" required/></p>
+    <datalist id="category">
+        {% for x in categories %}
+        <option value="{{x['category_id']}}">{{x['name']}}</option>
+        {% endfor %}
+    </datalist>
+    <p class="medium">Subcategory: <input name="subcategory", type="text" /></p>
+    <p class="medium">Video: <input name="video", type="url" /></p>
+    <p class="medium">Demos: <input name="demos", type="url" /></p>
+    <p class="medium">Platform: <input name="platform", type="text" /></p>
+    <p class="medium">Time: <input class="time_fields" type="number" name="hours" placeholder="Hrs" required/> <input class="time_fields" type="number" name="minutes" placeholder="Min" required/> <input class="time_fields" type="number" name="seconds" placeholder="Sec" required/></p>
+    <p class="medium">Players: <input name="players", type="text" /></p>
+    <p class="medium">Date: <input type="date" name="date" id="date" required/></p>
+    <p class="medium">Splits: <input name="splits", type="text" /></p>
+    <input type="submit" value="Submit" />
+</form>
+<script>
+    var date = new Date().toISOString();
+    date = date.substring(0, date.indexOf('T'));
+    document.getElementById('date').value = date;
+</script>
+
+{% endblock %}

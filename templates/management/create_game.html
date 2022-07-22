@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Create Game{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">
+    <p>Create Game</p>
+    <p class="medium">Name: <input type="text" name="name" required/></p>
+    <p class="medium">Abbreviation: <input type="text" name="abv" required/></p>
+    <p class="medium">Order Number: <input type="number" name="order_by" value="{{ order_by_num }}" requierd/></p>
+    <p class="medium">Game utilizies IGT: <input type="checkbox" name="use_game_time" id="show_chk_2" /></p>
+    <p class="medium">Show on Home Page: <input type="checkbox" name="show_on_home" id="show_chk" /></p>
+    <input type="submit" value="Submit" />
+</form>
+<script>
+    document.getElementById('show_chk').checked = true;
+</script>
+
+{% endblock %}

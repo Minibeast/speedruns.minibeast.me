@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Run Comparison{% endblock %}
+{% block content %}
+
+<p><a href="/{{ run1['game_abv'] }}">{{ run1['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="/{{ run1['game_abv'] }}/{{ run1['category_abv'] }}">{{ run1['category_name'] }}</a></p>
+<br>
+<table>
+    <tr style="border-bottom: solid;">
+        <td>Name</td>
+        <td><a href="/run/{{ run1['url_id'] }}">{{ run1['timestring'] }}</a></td>
+        <td><a href="/run/{{ run2['url_id'] }}">{{ run2['timestring'] }}</a></td>
+    </tr>
+    {% for x in splits_comparison %}
+    <tr>
+        <td>{{ x['split_info_1']['name'] }}</td>
+        {% if x['is_gold'] %}
+        <td class="gold">{{ x['split_info_1']['segment_time'] }}</td>
+        <td>{{ x['split_info_2']['segment_time'] }}</td>
+        {% else %}
+        <td>{{ x['split_info_1']['segment_time'] }}</td>
+        <td class="gold">{{ x['split_info_2']['segment_time'] }}</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
