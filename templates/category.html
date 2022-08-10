@@ -4,7 +4,7 @@
 
 <p>{{ category['name'] }}</p>
 {% for x in category['personal_best'] %}
-<p class="bumped medium"><span class="hide_small">Personal Best: </span><a href="/run/{{ x['url_id'] }}">{{ x['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ x['date'] }}{% if x['players'] != None %} with {{ x['players'] }}{% endif %}{% if category['filter'] %} <span class="show_small"><br></span>({{ x['subcategory'] }}){% endif %}</p>
+<p class="bumped medium"><span class="hide_small">Personal Best: </span><a href="{{ url_for('routes.get_run', runid=x['url_id']) }}">{{ x['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ x['date'] }}{% if x['players'] != None %} with {{ x['players'] }}{% endif %}{% if category['filter'] %} <span class="show_small"><br></span>({{ x['subcategory'] }}){% endif %}</p>
 {% endfor %}
 <p>Run History</p>
 {% if category['filter'] %}
@@ -12,14 +12,14 @@
 {% for x in category['run_history'].items() %}
 <p class="bumped medium">{{ x[0] }}</p>
 {% for y in x[1] %}
-<p class="bumped-further small"><a href="/run/{{ y['url_id'] }}">{{ y['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ y['date'] }}{% if y['players'] != None %} with {{ y['players'] }}{% endif %}</p>
+<p class="bumped-further small"><a href="{{ url_for('routes.get_run', runid=y['url_id']) }}">{{ y['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ y['date'] }}{% if y['players'] != None %} with {{ y['players'] }}{% endif %}</p>
 {% endfor %}
 {% endfor %}
 
 {% else %}
 
 {% for x in category['run_history'] %}
-<p class="bumped small"><a href="/run/{{ x['url_id'] }}">{{ x['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ x['date'] }}{% if x['players'] != None %} with {{ x['players'] }}{% endif %}</p>
+<p class="bumped small"><a href="{{ url_for('routes.get_run', runid=x['url_id']) }}">{{ x['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ x['date'] }}{% if x['players'] != None %} with {{ x['players'] }}{% endif %}</p>
 {% endfor %}
 
 {% endif %}

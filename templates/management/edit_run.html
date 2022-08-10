@@ -21,6 +21,6 @@
     <p class="medium">Splits: <input name="splits", type="text" value="{{ check_value(run.splits) }}"/></p>
     <input type="submit" value="Submit" />
 </form>
-<a class="medium footer" href="/actions/delete_run/{{ run.url_id }}">Delete Run</a>
+<a class="medium footer" href="{{ url_for('management.delete_run', run_id=run.url_id) }}">Delete Run</a>
 
 {% endblock %}

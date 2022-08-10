@@ -3,11 +3,11 @@
 {% block content %}
 
 {% for x in runs %}
-<a href="/{{ x['abv'] }}">{{ x['name'] }}</a><br>
+<a href="{{ url_for('routes.game', game_abv=x['abv']) }}">{{ x['name'] }}</a><br>
 {% for y in x['categories'] %}
-<a class="bumped medium" href="/{{ x['abv'] }}/{{ y['abv'] }}">{{ y['name'] }}</a>
+<a class="bumped medium" href="{{ url_for('routes.category', game_abv=x['abv'], category_abv=y['abv']) }}">{{ y['name'] }}</a>
 {% for z in y['personal_best'] %}
-<p><a class="bumped-further small no_color" href="/run/{{ z['url_id'] }}">{{z['timestring']}} <span class="hide_small">achieved on </span><span class="show_small">| </span>{{z['date']}}{% if z['players'] != None %} with {{ z['players'] }}{% endif %}</a></p>
+<p><a class="bumped-further small no_color" href="{{ url_for('routes.get_run', runid=z['url_id']) }}">{{z['timestring']}} <span class="hide_small">achieved on </span><span class="show_small">| </span>{{z['date']}}{% if z['players'] != None %} with {{ z['players'] }}{% endif %}</a></p>
 {% endfor %}
 {% endfor %}
 {% endfor %}

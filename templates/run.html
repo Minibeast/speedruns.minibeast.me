@@ -2,7 +2,7 @@
 {% block title %}{{ run['game_abv'].upper() }} {{ run['category_name'] }} in {{ run['timestring'] }}{% endblock %}
 {% block content %}
 
-<p><a href="/{{ run['game_abv'] }}">{{ run['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="/{{ run['game_abv'] }}/{{ run['category_abv'] }}">{{ run['category_name'] }}</a>{% if run['subcategory'] != None %} ({{ run['subcategory'] }}){% endif %}</p>
+<p><a href="{{ url_for('routes.game', game_abv=run['game_abv']) }}">{{ run['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="{{ url_for('routes.category', game_abv=run['game_abv'], category_abv=run['category_abv']) }}">{{ run['category_name'] }}</a>{% if run['subcategory'] != None %} ({{ run['subcategory'] }}){% endif %}</p>
 <p class="bumped medium">{{run['timestring']}}{% if run['players'] != None %} with {{ run['players'] }}{% endif %}{% if not is_pb[0] %} <a href="{{ is_pb[1] }}">(Obsolete)</a>{% endif %}</p>
 <p class="bumped medium"><span class="hide_small">Achieved on </span>{{run['date']}}</p>
 {% if run['platform'] != None %}
@@ -31,7 +31,7 @@
     </tr>
     {% endfor %}
 </table>
-<p class="medium"><a href="{{ run['url_id'] }}/splits">Download</a> | <a href="/compare/{{ run['url_id'] }}">Create Comparison</a></p>
+<p class="medium"><a href="{{ url_for('routes.get_splits', runid=run['url_id']) }}">Download</a> | <a href="{{ url_for('routes.make_comparison', run1=run['url_id']) }}">Create Comparison</a></p>
 <p class="medium"></p>
 {% endif %}
 

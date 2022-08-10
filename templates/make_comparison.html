@@ -2,8 +2,8 @@
 {% block title %}Make Comparison{% endblock %}
 {% block content %}
 
-<p><a href="/{{ run1['game_abv'] }}">{{ run1['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="/{{ run1['game_abv'] }}/{{ run1['category_abv'] }}">{{ run1['category_name'] }}</a>{% if run1['subcategory'] != None %} ({{ run1['subcategory'] }}){% endif %}</p>
-<p class="bumped medium"><a href="/run/{{ run1['url_id'] }}">{{run1['timestring']}}</a>{% if run1['players'] != None %} with {{ run1['players'] }}{% endif %}</p>
+<p><a href="{{ url_for('routes.game', game_abv=run1['game_abv']) }}">{{ run1['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="{{ url_for('routes.category', game_abv=run1['game_abv'], category_abv=run1['category_abv']) }}">{{ run1['category_name'] }}</a>{% if run1['subcategory'] != None %} ({{ run1['subcategory'] }}){% endif %}</p>
+<p class="bumped medium"><a href="{{ url_for('routes.get_run', runid=run1['url_id']) }}">{{run1['timestring']}}</a>{% if run1['players'] != None %} with {{ run1['players'] }}{% endif %}</p>
 <p class="bumped medium"><span class="hide_small">Achieved on </span>{{run1['date']}}</p>
 {% if run1['platform'] != None %}
 <p class="bumped medium"><span class="hide_small">Platform: </span>{{run1['platform']}}</p>
@@ -17,14 +17,14 @@
 {% for x in run_history.items() %}
 <p class="bumped medium">{{ x[0] }}</p>
 {% for y in x[1] %}
-<p class="bumped-further small"><a href="{{ run1['url_id'] }}/{{ y['url_id'] }}">{{ y['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ y['date'] }}{% if y['players'] != None %} with {{ y['players'] }}{% endif %}</p>
+<p class="bumped-further small"><a href="{{ url_for('routes.compare_runs_pg', run1=run1['url_id'], run2=y['url_id']) }}">{{ y['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ y['date'] }}{% if y['players'] != None %} with {{ y['players'] }}{% endif %}</p>
 {% endfor %}
 {% endfor %}
 
 {% else %}
 
 {% for x in run_history %}
-<p class="bumped small"><a href="{{ run1['url_id'] }}/{{ x['url_id'] }}">{{ x['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ x['date'] }}{% if x['players'] != None %} with {{ x['players'] }}{% endif %}</p>
+<p class="bumped small"><a href="{{ url_for('routes.compare_runs_pg', run1=run1['url_id'], run2=x['url_id']) }}">{{ x['timestring'] }}</a> <span class="hide_small">achieved on </span><span class="show_small">| </span>{{ x['date'] }}{% if x['players'] != None %} with {{ x['players'] }}{% endif %}</p>
 {% endfor %}
 
 {% endif %}

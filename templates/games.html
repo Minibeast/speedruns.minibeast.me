@@ -3,9 +3,9 @@
 {% block content %}
 
 {% for x in games %}
-<p><a href="{{ x['abv'] }}">{{ x['name'] }}</a></p>
+<p><a href="{{ url_for('routes.game', game_abv=x['abv']) }}">{{ x['name'] }}</a></p>
 {% for y in x['categories'] %}
-<a class="bumped-tiny medium no_color" href="/{{ x['abv'] }}/{{ y['abv'] }}">{{ y['name'] }}</a><span class="show_small"><br></span>
+<a class="bumped-tiny medium no_color" href="{{ url_for('routes.category', game_abv=x['abv'], category_abv=y['abv']) }}">{{ y['name'] }}</a><span class="show_small"><br></span>
 {% endfor %}
 {% endfor %}
 

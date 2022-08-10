@@ -19,7 +19,7 @@
     <p class="medium">Order Number: <input type="number" name="order_by" value="{{ cat.order_by }}" /></p>
     <input type="submit" value="Submit" />
 </form>
-<a class="medium footer" href="/actions/delete_category/{{ game.abbreviation }}/{{ cat.abbreviation }}">Delete Category</a>
+<a class="medium footer" href="{{ url_for('management.delete_category', game_abv=game.abbreviation, category_abv=cat.abbreviation) }}">Delete Category</a>
 <script>
     document.getElementById('show_chk').checked = {{ show_on_home_value }};
     document.getElementById('show_chk_2').checked = {{ filter_subcats_value }};

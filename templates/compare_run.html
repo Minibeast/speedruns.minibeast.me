@@ -2,13 +2,13 @@
 {% block title %}Run Comparison{% endblock %}
 {% block content %}
 
-<p><a href="/{{ run1['game_abv'] }}">{{ run1['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="/{{ run1['game_abv'] }}/{{ run1['category_abv'] }}">{{ run1['category_name'] }}</a></p>
+<p><a href="{{ url_for('routes.game', game_abv=run1['game_abv']) }}">{{ run1['game_name'] }}</a><span class="hide_small"> - </span><span class="show_small"><br></span><a href="{{ url_for('routes.category', game_abv=run1['game_abv'], category_abv=run1['category_abv']) }}">{{ run1['category_name'] }}</a></p>
 <br>
 <table>
     <tr style="border-bottom: solid;">
         <td>Name</td>
-        <td><a href="/run/{{ run1['url_id'] }}">{{ run1['timestring'] }}</a></td>
-        <td><a href="/run/{{ run2['url_id'] }}">{{ run2['timestring'] }}</a></td>
+        <td><a href="{{ url_for('routes.get_run', runid=run1['url_id']) }}">{{ run1['timestring'] }}</a></td>
+        <td><a href="{{ url_for('routes.get_run', runid=run2['url_id']) }}">{{ run2['timestring'] }}</a></td>
     </tr>
     {% for x in splits_comparison %}
     <tr>
