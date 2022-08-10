@@ -1,7 +1,7 @@
 from flask.blueprints import Blueprint
 from func import check_form, check_valid_change
 from models import *
-from flask import redirect, request, render_template
+from flask import redirect, request, render_template, url_for
 from flask_login import current_user, login_required
 import datetime
 
@@ -28,11 +28,11 @@ def create_game():
         game = GameModel(name=name, abbreviation=abbreviation, order_by=order_by, use_game_time=use_game_time, show_on_home=show_on_home)
         db.session.add(game)
         db.session.commit()
-        return redirect("/")
+        return redirect(url_for("routes.load_runs"))
     elif request.method == "GET":
         games = GameModel.query.count()
         return render_template('management/create_game.html', order_by_num=games + 1)
-    return redirect("/")
+    return redirect(url_for("routes.load_runs"))
 
 
 @management.route("/create_category", methods=["POST", "GET"])
@@ -63,11 +63,11 @@ def create_category():
                                     order_by=order_by, subcategory_filter=filter_subcats, is_multiplayer=is_multiplayer)
         db.session.add(category)
         db.session.commit()
-        return redirect("/")
+        return redirect(url_for("routes.load_runs"))
     elif request.method == "GET":
         categories = CategoryModel.query.count()
         return render_template('management/create_category.html', games=GameModel.query, order_by_num=categories + 1)
-    return redirect("/")
+    return redirect(url_for("routes.load_runs"))
 
 
 @management.route("/create_run", methods=["POST", "GET"])
@@ -99,7 +99,7 @@ def create_run():
 
         db.session.add(run)
         db.session.commit()
-        return redirect("/")
+        return redirect(url_for("routes.load_runs"))
     elif request.method == "GET":
         output = []
         categories = CategoryModel.query
@@ -110,7 +110,7 @@ def create_run():
                 'name': f"{game.name} - {x.name}"
             })
         return render_template('management/create_run.html', categories=output)
-    return redirect("/")
+    return redirect(url_for("routes.load_runs"))
 
 
 @management.route('/edit_game/<game_abv>', methods=["POST", "GET"])
@@ -138,7 +138,7 @@ def edit_game(game_abv=None):
 
         db.session.add(game)
         db.session.commit()
-        return redirect("/")
+        return redirect(url_for("routes.load_runs"))
     else:
         if game.use_game_time:
             use_game_time_value = 'true'
@@ -200,7 +200,7 @@ def edit_category(game_abv=None, cat_abv=None):
 
         db.session.add(cat)
         db.session.commit()
-        return redirect("/")
+        return redirect(url_for("routes.load_runs"))
     else:
         if cat.show_on_home:
             show_on_home_value = 'true'
@@ -253,7 +253,7 @@ def edit_run(run_id=None):
 
         db.session.add(run)
         db.session.commit()
-        return redirect("/")
+        return redirect(url_for("routes.load_runs"))
     elif request.method == "GET":
         output = []
         categories = CategoryModel.query
@@ -265,7 +265,7 @@ def edit_run(run_id=None):
             })
 
         return render_template('management/edit_run.html', categories=output, run=run, date=f"{run.date.year}-{str(run.date.month).zfill(2)}-{str(run.date.day).zfill(2)}")
-    return redirect("/")
+    return redirect(url_for("routes.load_runs"))
 
 
 @management.route("/delete_run/<run_id>")
@@ -279,7 +279,7 @@ def delete_run(run_id=None):
 
     db.session.delete(run)
     db.session.commit()
-    return redirect('/')
+    return redirect(url_for("routes.load_runs"))
 
 
 @management.route("/delete_category/<game_abv>/<cat_abv>")
@@ -298,7 +298,7 @@ def delete_category(game_abv=None, cat_abv=None):
     
     db.session.delete(cat)
     db.session.commit()
-    return redirect('/')
+    return redirect(url_for("routes.load_runs"))
 
 
 @management.route("/delete_game/<game_abv>")
@@ -318,4 +318,4 @@ def delete_game(game_abv=None):
     
     db.session.delete(game)
     db.session.commit()
-    return redirect('/')
+    return redirect(url_for("routes.load_runs"))

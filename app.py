@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_login import current_user, login_user, logout_user
 from models import *
 import private
@@ -39,7 +39,7 @@ def create_all():
 @app.route('/login', methods=["POST", "GET"])
 def login():
     if current_user.is_authenticated:
-        return redirect("/")
+        return redirect(url_for("routes.load_runs"))
     
     if request.method == 'POST':
         username = private.USERNAME
@@ -49,7 +49,7 @@ def login():
             if 'next' in request.args:
                 return redirect(request.args['next'])
             else:
-                return redirect("/")
+                return redirect(url_for("routes.load_runs"))
 
     return render_template('login.html')
 
@@ -57,4 +57,4 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect("/")
+    return redirect(url_for("routes.load_runs"))

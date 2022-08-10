@@ -2,7 +2,7 @@ from flask.blueprints import Blueprint
 from flask.helpers import make_response
 from func import compare_runs, is_pb, convert_run, get_personal_best, generate_comparison, get_games_index
 from models import *
-from flask import render_template, redirect
+from flask import render_template, redirect, url_for
 
 routes = Blueprint('routes', __name__)
 
@@ -205,7 +205,7 @@ def get_pb(game_abv=None, category_abv=None):
     if len(best_times) == 0 or best_times[0] is None:
         return "No valid PB for category."
     else:
-        return redirect('/run/' + best_times[0].url_id)
+        return redirect(url_for("routes.get_run", runid=best_times[0].url_id))
 
 
 @routes.route("/compare/<run1>")

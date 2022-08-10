@@ -3,7 +3,7 @@ from flask.helpers import make_response
 from werkzeug.datastructures import MultiDict
 from func import convert_run
 from models import *
-from flask import redirect, request, render_template
+from flask import redirect, request, render_template, url_for
 
 feeds = Blueprint('feeds', __name__)
 
@@ -38,7 +38,7 @@ def rss_output():
     runs = parse_query_strings(request.args)
     
     if runs is None:
-        return redirect('/rss')
+        return redirect(url_for('feeds.rss_output'))
 
     i = 0
     while i < 10 and i < runs.count():
@@ -58,7 +58,7 @@ def json_output():
     runs = parse_query_strings(request.args)
     
     if runs is None:
-        return redirect('/json')
+        return redirect(url_for('feeds.json_output'))
     
     for x in runs:
         output.append(convert_run(x))
