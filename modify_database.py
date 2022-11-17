@@ -1,8 +1,10 @@
 import sqlalchemy
 import pandas as pd
 from werkzeug.security import generate_password_hash
-import private
 import getpass
+import os
+
+DB_USERNAME = os.environ.get("DB_USERNAME")
 
 dbEngine = sqlalchemy.create_engine('sqlite:///database.db')
 
@@ -19,4 +21,4 @@ def create_user(username, password):
 
 if __name__ == '__main__':
     pwd = getpass.getpass()
-    create_user(private.USERNAME, pwd)
+    create_user(DB_USERNAME, pwd)

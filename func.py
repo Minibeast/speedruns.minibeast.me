@@ -1,6 +1,8 @@
 import datetime
 from models import *
-import private
+import os
+
+PARENT_URL = os.environ.get("PARENT_URL")
 
 
 def pb_rules(run : RunModel, category : CategoryModel = None) -> bool:
@@ -46,7 +48,7 @@ def get_embed_url(url : str) -> str:
         return f"https://www.youtube-nocookie.com/embed/{video_id}"
     elif "twitch" in url:
         video_id = url.split("/")[4]
-        return f"https://player.twitch.tv/?video={video_id}&parent={private.PARENT}&autoplay=false"
+        return f"https://player.twitch.tv/?video={video_id}&parent={PARENT_URL}&autoplay=false"
     else:
         return url
 

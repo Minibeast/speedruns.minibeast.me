@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
+    <link rel="stylesheet" href="{{ external_css }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-    <title>{% block title %}{% endblock %} | minibeast.me</title>
+    <title>{% block title %}{% endblock %} | {{ site_name }}</title>
 </head>
 <body>
     {% block content %}{% endblock %}

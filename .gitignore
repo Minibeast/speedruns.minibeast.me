@@ -1,6 +1,5 @@
 .vscode/
 database.db
-private.py
 notes/
 
 # Byte-compiled / optimized / DLL files
